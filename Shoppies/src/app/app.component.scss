@@ -1,0 +1,61 @@
+.title{
+    margin-top: 50px;
+    margin-left: 10%;
+    font-weight: bolder;
+    font-size: xx-large;
+}
+
+.container{
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 15px;
+    margin-right: 10%;
+}
+
+.search-bar{
+    height: 30px;
+    width: 75%;
+    margin-right: 25px;
+}
+
+.year-search{
+    height: 30px;
+    width: 20%;
+    margin-left: 15px;
+}
+
+.search-results{
+    width: 45%;
+    float: left;
+}
+
+.nominations{
+    margin-left: 50%;
+    width: 50%;
+}
+
+.movies{
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.movies th p{
+    float: left;
+}
+
+li{
+    padding-bottom: 5px;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.link-generator h4{
+    display: inline;
+}

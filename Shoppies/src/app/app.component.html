@@ -1,0 +1,56 @@
+<h1 class="title">The Shoppies</h1>
+<mat-card class="container">
+    <h2>Movie Title</h2>
+    <div class="search-menu">
+        <mat-form-field class="search-bar">
+            <input matInput [(ngModel)]="searchTerm" type="text" placeholder="🔎 Search for movies by title..." (keyup.enter)="search(searchTerm, searchYear, 1)">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput [(ngModel)]="searchYear" class="year-search" type="number" placeholder="Filter by year" (keyup.enter)="search(searchTerm, searchYear, 1)">
+        </mat-form-field>
+    </div>
+</mat-card>
+<section class="container">
+    <mat-card class="search-results">
+        <h2 *ngIf="noOfResults != 0">Search Results for: "{{ searchTerm }}"</h2>
+        <h3 *ngIf="noOfResults != 0 && searchError == ''"><i>{{ noOfResults }} results</i></h3>
+        <h3 *ngIf="searchError != ''"><i>Error: {{ searchError }}</i></h3>
+        <h2 *ngIf="noOfResults == 0">Search movies using the search bar above</h2>
+        <table class="movies" *ngIf="noOfResults != 0">
+            <tr>
+                <th><p>Title</p></th>
+                <th><p>Year</p></th>
+                <th><p>Nominate</p></th>
+            </tr>
+            <tr *ngFor="let movie of movies">
+                <td>{{movie.Title}}</td>
+                <td>{{movie.Year}}</td>
+                <td><button mat-button color="primary" (click)="nominateMovie(movie)" [disabled]="movie.selected">Select</button></td>
+            </tr>
+        </table>
+        <label *ngIf="noOfPages > 0">Page: </label>
+        <select *ngIf="noOfPages > 0" (change)="search(searchTerm, searchYear, $event.target.value)">
+            <option *ngFor="let in of pageCounter(noOfPages) ;let i = index" value="{{i + 1}}">{{i + 1}}</option>>
+        </select>
+    </mat-card>
+    <mat-card class="nominations">
+        <h2>Nominations</h2>
+        <table class="movies" *ngIf="nominated.length != 0">
+            <tr>
+                <th><p>Title</p></th>
+                <th><p>Year</p></th>
+                <th><p>Nominate</p></th>
+            </tr>
+            <tr *ngFor="let movie of nominated">
+                <td>{{movie.Title}}</td>
+                <td>{{movie.Year}}</td>
+                <td><button mat-button color="warn" (click)="denominateMovie(movie)" >Remove</button></td>
+            </tr>
+        </table>
+        <div class="link-generator">
+            <button mat-stroked-button *ngIf="nominated.length > 0" (click)="copyLink()">🔗 Create Shareable Link</button>
+            <h4 *ngIf="linkGenerated">  Link copied!</h4>
+        </div>
+    </mat-card>
+</section>
+<router-outlet></router-outlet>
