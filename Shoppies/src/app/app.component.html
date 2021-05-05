@@ -6,17 +6,17 @@
             <input matInput [(ngModel)]="searchTerm" type="text" placeholder="🔎 Search for movies by title..." (keyup.enter)="search(searchTerm, searchYear, 1)">
         </mat-form-field>
         <mat-form-field>
-            <input matInput [(ngModel)]="searchYear" class="year-search" type="number" placeholder="Filter by year" (keyup.enter)="search(searchTerm, searchYear, 1)">
+            <input matInput [(ngModel)]="searchYear" type="number" placeholder="📅 Filter by year" (keyup.enter)="search(searchTerm, searchYear, 1)">
         </mat-form-field>
     </div>
 </mat-card>
 <section class="container">
     <mat-card class="search-results">
-        <h2 *ngIf="noOfResults != 0">Search Results for: "{{ searchTerm }}"</h2>
+        <h2 *ngIf="noOfResults == 0 || searchTerm == ''">Search movies using the search bar above</h2>
+        <h2 *ngIf="noOfResults != 0 && searchTerm != ''">Search Results for: "{{ searchTerm }}"</h2>
         <h3 *ngIf="noOfResults != 0 && searchError == ''"><i>{{ noOfResults }} results</i></h3>
         <h3 *ngIf="searchError != ''"><i>Error: {{ searchError }}</i></h3>
-        <h2 *ngIf="noOfResults == 0">Search movies using the search bar above</h2>
-        <table class="movies" *ngIf="noOfResults != 0">
+        <table class="movies" *ngIf="noOfResults != 0 && searchError == ''">
             <tr>
                 <th><p>Title</p></th>
                 <th><p>Year</p></th>
@@ -34,7 +34,7 @@
         </select>
     </mat-card>
     <mat-card class="nominations">
-        <h2>Nominations</h2>
+        <h2 style="margin-bottom: 0;">Nominations 🏆</h2>
         <table class="movies" *ngIf="nominated.length != 0">
             <tr>
                 <th><p>Title</p></th>

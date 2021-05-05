@@ -64,6 +64,13 @@ export class AppComponent implements OnInit{
 				}else{
 					this.searchError = res.Error;
 				}
+
+				//If movie in search result has already been nominated, select it
+				for(let movie of this.movies){
+					if(this.nominated.filter(function(obj) { return obj.imdbID === movie.imdbID; }).length > 0){
+						movie.selected = true;
+					}
+				}
 			});
 		}
 	}
@@ -83,10 +90,17 @@ export class AppComponent implements OnInit{
 
 	denominateMovie(movie){
 		if(this.amountNominated > 0){
-			movie.selected = false;
+			//deselect movie in search results
+			let movieIndex = -1;
+			movieIndex = this.movies.findIndex((obj => obj.imdbID == movie.imdbID));
+			if(movieIndex >= 0){
+				this.movies[movieIndex].selected = false;
+			}
+			//remove the movie from the nominated group
 			this.nominated = this.nominated.filter(function(obj){
 				return obj.imdbID !== movie.imdbID;
 			});
+			//remove the id from the nominated ids
 			this.nominatedIDs = this.nominatedIDs.filter(function(obj){
 				return obj !== movie.imdbID;
 			});
